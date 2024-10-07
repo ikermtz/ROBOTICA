@@ -15,7 +15,11 @@ VSCODE:
   ABRIR CARPETA DE TRABAJO
   laboratorio@UD:~$cd ros_workspace
   laboratorio@UD:~/ros_workspace$ source devel/setup.bash
+laboratorio@UD:~/ros_workspace$ roslaunch launcher_robots_lab_robotica sim_203.launch
 
 CONTROL:
   Hacer una carpeta en /ros_workspace/src/control_robot_mucsi
   Dentro crear un file llamado control_robot.py
+
+DOCUMENTACION MOVEIT:
+  https://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/move_group_python_interface/move_group_python_interface_tutorial.html  
