@@ -15,3 +15,7 @@ VSCODE:
   ABRIR CARPETA DE TRABAJO
   laboratorio@UD:~$cd ros_workspace
   laboratorio@UD:~/ros_workspace$ source devel/setup.bash
+
+CONTROL:
+  Hacer una carpeta en /ros_workspace/src/control_robot_mucsi
+  Dentro crear un file llamado control_robot.py
