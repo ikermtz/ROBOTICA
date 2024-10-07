@@ -1,0 +1,17 @@
+
+TERMINAL:
+  laboratorio@UD:~$ cd ros1_mucsi/
+  laboratorio@UD:~/ros1_mucsi$ ls
+  docker-compose.yml  entrypoint.sh  ros_workspace
+  dockerfiles         README.md      supervisord.conf
+  laboratorio@UD:~/ros1_mucsi$ code .
+  laboratorio@UD:~/ros1_mucsi$ docker compose --profile local_gpu up
+  [+] Running 1/0
+   ⠿ Container ros1_mucsi-local_laboratorio_gpu-1  Created                   0.0s
+  Attaching to ros1_mucsi-local_laboratorio_gpu-1
+
+
+VSCODE:
+  ABRIR CARPETA DE TRABAJO
+  laboratorio@UD:~$cd ros_workspace
+  laboratorio@UD:~/ros_workspace$ source devel/setup.bash
