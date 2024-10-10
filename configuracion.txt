@@ -15,7 +15,7 @@ VSCODE:
   ABRIR CARPETA DE TRABAJO
   laboratorio@UD:~$cd ros_workspace
   laboratorio@UD:~/ros_workspace$ source devel/setup.bash
-laboratorio@UD:~/ros_workspace$ roslaunch launcher_robots_lab_robotica sim_203.launch
+  laboratorio@UD:~/ros_workspace$ roslaunch launcher_robots_lab_robotica sim_203.launch
 
 CONTROL:
   Hacer una carpeta en /ros_workspace/src/control_robot_mucsi
