@@ -5,7 +5,7 @@ import rospy
 import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg
-from math import pi, tau, dist, fabs, cos
+from math import pi, tau, dist, fabs, cos, sin
 from std_msgs.msg import String
 from moveit_commander.conversions import pose_to_list
 from moveit_commander import MoveGroupCommander, RobotCommander, roscpp_initialize
@@ -58,6 +58,7 @@ class ControlRobot:
 
     # Indicamos una trayectoria al robot, devuelve True al finalizar
     def move_trajectory(self, poses: List[Pose], wait: bool = True) -> bool:
+        poses.insert(0, self.get_pose())
         (plan, fraction) = self.move_group.compute_cartesian_path(poses, 0.01, 0.0)
 
         if fraction != 1.0:
@@ -65,30 +66,38 @@ class ControlRobot:
         
         return self.move_group.execute(plan, wait = wait)
 
-
 if __name__ == '__main__':
-
     control = ControlRobot()
     pose_act = control.get_pose()
 
-    # Task 1
-    #control.add_box_to_planning_scene(pose_act, "Caja_practica1", (2, 2, 2))
+    # Task 1: Añadir una caja a la escena de planificación
+    caja_pose = geometry_msgs.msg.Pose()
+    caja_pose.position.x = 0.5
+    caja_pose.position.y = 0.5
+    caja_pose.position.z = 0.25
+    control.add_box_to_planning_scene(caja_pose, "Caja_practica1", (0.1, 0.1, 0.5))
+    print("Caja añadida a la escena")
 
-    # Task 2
-    pose_goal = pose_act
-    pose_goal.position.x = pose_act.position.x + 0.3
-    pose_goal.position.y = pose_act.position.y + 0.3
-    pose_goal.position.z = pose_act.position.z + 0.3
-    control.move_to_pose(pose_goal)
+    # Task 2: Mover el robot a una pose específica
+    pose_goal = geometry_msgs.msg.Pose()    
+    pose_goal.position.x = 0.3  
+    pose_goal.position.y = 0.1  
+    pose_goal.position.z = 0.4  
+    pose_goal.orientation.x = 0.0
+    pose_goal.orientation.y = 0.0
+    pose_goal.orientation.z = 0.0
+    pose_goal.orientation.w = 1.0
+
+
+    print("Intentando mover a la pose objetivo:")
+    print(pose_goal)
+
+    hecho = control.move_to_pose(pose_goal)
+
+    if hecho:
+        print("El robot ha alcanzado la pose objetivo")
+    else:
+        print("No se pudo alcanzar la pose objetivo")
+
+    # Task 3: Rotar las articulaciones del robot
     
-    # Task 3
-    #angles_act = control.get_motor_angles()
-    #angles_goal = angles_act
-    #i = 0
-    #while(i < len(angles_act)):
-        #angles_goal[i] = angles_act[i] + tau
-        #i += 1
-
-    #control.move_motors(angles_goal, True)
-
-    # Task 4
