@@ -23,3 +23,13 @@ CONTROL:
 
 DOCUMENTACION MOVEIT:
   https://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/move_group_python_interface/move_group_python_interface_tutorial.html  
+
+PAQUETE ROS NUEVO:
+  cd ros
+  catkin_create_pkg paquete_practica1
+  cd paquete_practica1
+  mkdir src
+  cd src
+  mkdir paquete_practica1
+  Hay un fichero CMakeLists.txt, abrirlo en vscode y descomentar las lineas entre 67 y 70 para poder trabajar con numeros enteros
+    
