@@ -67,19 +67,28 @@ class ControlRobot:
         return self.move_group.execute(plan, wait = wait)
 
 if __name__ == '__main__':
+
+    print("")
+    print("Empieza la ejecucion de la practica 1")
+    print("")
     control = ControlRobot()
     pose_act = control.get_pose()
 
     # Task 1: Añadir una caja a la escena de planificación
+    print("TASK 1: Añadir un obstaculo en la posicion (0.5, 0.5, 0.25)")
     caja_pose = geometry_msgs.msg.Pose()
     caja_pose.position.x = 0.5
     caja_pose.position.y = 0.5
     caja_pose.position.z = 0.25
     control.add_box_to_planning_scene(caja_pose, "Caja_practica1", (0.1, 0.1, 0.5))
-    print("Caja añadida a la escena")
+    print(" Caja añadida a la escena")
+    print("")
 
     # Task 2: Mover el robot a una pose específica
-    pose_goal = geometry_msgs.msg.Pose()    
+    print("TASK 2: Mover el robot a una pose especifica")
+    pose_goal = geometry_msgs.msg.Pose() 
+    print(" Pose actual del robot:")
+    print(pose_act)   
     pose_goal.position.x = 0.3  
     pose_goal.position.y = 0.1  
     pose_goal.position.z = 0.4  
@@ -88,16 +97,87 @@ if __name__ == '__main__':
     pose_goal.orientation.z = 0.0
     pose_goal.orientation.w = 1.0
 
-
-    print("Intentando mover a la pose objetivo:")
-    print(pose_goal)
-
     hecho = control.move_to_pose(pose_goal)
-
     if hecho:
         print("El robot ha alcanzado la pose objetivo")
     else:
         print("No se pudo alcanzar la pose objetivo")
 
+    print(" Pose objetivo del robot:")
+    print(pose_goal)
+    print("")
+
     # Task 3: Rotar las articulaciones del robot
-    
+    print("TASK 3: Mover las articulaciones del robot")
+    joints = control.get_motor_angles()
+    print(" Ángulos actuales de los motores:")
+    print(joints)
+
+    i = 0
+    while (i<6):
+
+        # Uso el bug de que el rango de movimiento de las articulaciones es (-6.28, 6.28)
+        if (joints[i]>2.0):
+            joints[i] -= 0.33
+
+        else:
+            joints[i] += 0.33
+   
+        i += 1
+
+    hecho = control.move_motors(joints)
+    if hecho:
+        print(" El robot ha rotado todas sus articulaciones tau/4 (90 grados)")
+
+    else:
+        print(" No se pudo alcanzar la nueva posición de las articulaciones")
+
+    print(" Nuevos ángulos de los motores:")
+    print(control.get_motor_angles())
+    print("")
+
+    #Task 4: Mover el robot a una pose específica
+    print("TASK 4: Mover el robot en una trayectoria")
+
+    # Definimos una lista de waypoints (poses)
+    waypoints = []
+
+    # Waypoint 1
+    pose1 = geometry_msgs.msg.Pose()
+    pose1.position.x = 0.02
+    pose1.position.y = 0.02
+    pose1.position.z = 0.02
+    pose1.orientation.w = 1.0
+    waypoints.append(pose1)
+
+    # Waypoint 2
+    pose2 = geometry_msgs.msg.Pose()
+    pose2.position.x = 0.04
+    pose2.position.y = 0.04
+    pose2.position.z = 0.04
+    pose2.orientation.w = 1.0
+    waypoints.append(pose2)
+
+    # Waypoint 3
+    pose3 = geometry_msgs.msg.Pose()
+    pose3.position.x = 0.5
+    pose3.position.y = 0.1
+    pose3.position.z = 0.3
+    pose3.orientation.w = 1.0
+    waypoints.append(pose3)
+
+    print(" Waypoints de la trayectoria:")
+    for i, wp in enumerate(waypoints):
+        print(f" Waypoint {i+1}: x={wp.position.x}, y={wp.position.y}, z={wp.position.z}")
+
+    # Intentamos mover el robot a lo largo de la trayectoria
+    hecho = control.move_trajectory(waypoints)
+
+    if hecho:
+        print(" El robot ha completado la trayectoria con éxito")
+    else:
+        print(" No se pudo completar la trayectoria")
+
+    print(" Pose final del robot:")
+    print(control.get_pose())
+    print("")
