@@ -139,45 +139,54 @@ if __name__ == '__main__':
     #Task 4: Mover el robot a una pose específica
     print("TASK 4: Mover el robot en una trayectoria")
 
-    # Definimos una lista de waypoints (poses)
-    waypoints = []
+    # Definimos una trayectoria de poses en un vector
+    poses = []
 
     # Waypoint 1
     pose1 = geometry_msgs.msg.Pose()
-    pose1.position.x = 0.02
-    pose1.position.y = 0.02
-    pose1.position.z = 0.02
+    pose1.position.x = 0.4
+    pose1.position.y = 0.0
+    pose1.position.z = 0.2
     pose1.orientation.w = 1.0
-    waypoints.append(pose1)
+    poses.append(pose1)
 
     # Waypoint 2
     pose2 = geometry_msgs.msg.Pose()
-    pose2.position.x = 0.04
-    pose2.position.y = 0.04
-    pose2.position.z = 0.04
+    pose2.position.x = 0.5
+    pose2.position.y = 0.0
+    pose2.position.z = 0.2
     pose2.orientation.w = 1.0
-    waypoints.append(pose2)
+    poses.append(pose2)
 
     # Waypoint 3
     pose3 = geometry_msgs.msg.Pose()
-    pose3.position.x = 0.5
-    pose3.position.y = 0.1
-    pose3.position.z = 0.3
+    pose3.position.x = 0.6
+    pose3.position.y = 0.0
+    pose3.position.z = 0.2
     pose3.orientation.w = 1.0
-    waypoints.append(pose3)
+    poses.append(pose3)
 
-    print(" Waypoints de la trayectoria:")
-    for i, wp in enumerate(waypoints):
-        print(f" Waypoint {i+1}: x={wp.position.x}, y={wp.position.y}, z={wp.position.z}")
+    print(" Poses de la trayectoria:")
+    print("")
+
+    i = 0
+    while(i<3):
+        print("     Pose numero: " + str(i+1))
+        print("         X :" + str(poses[i].position.x))
+        print("         Y :" + str(poses[i].position.y))
+        print("         Z :" + str(poses[i].position.z))
+        print("")
+        i += 1
 
     # Intentamos mover el robot a lo largo de la trayectoria
-    hecho = control.move_trajectory(waypoints)
+    hecho = control.move_trajectory(poses)
 
     if hecho:
         print(" El robot ha completado la trayectoria con éxito")
     else:
         print(" No se pudo completar la trayectoria")
 
+    print("")
     print(" Pose final del robot:")
     print(control.get_pose())
     print("")
