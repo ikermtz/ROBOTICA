@@ -16,7 +16,7 @@ VSCODE:
   laboratorio@UD:~$cd ros_workspace
   laboratorio@UD:~/ros_workspace$ source devel/setup.bash
   laboratorio@UD:~/ros_workspace$ roslaunch launcher_robots_lab_robotica sim_203.launch             VIRTUAL
-  laboratorio@UD:~/ros_workspace$ roslaunch launcher_robots_lab_robotica _204.launch                ROBOT
+  laboratorio@UD:~/ros_workspace$ roslaunch launcher_robots_lab_robotica robot_204.launch                ROBOT
 
 CONTROL:
   Hacer una carpeta en /ros_workspace/src/control_robot_mucsi
